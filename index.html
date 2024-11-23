@@ -1,0 +1,393 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10A3_CBQ_GL</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Section */
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #333;
+            padding: 10px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #ff9800;
+        }
+
+        .navbar .login-btn {
+            padding: 10px 20px;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar .login-btn:hover {
+            background-color: #e68900;
+        }
+
+        /* Home Section Styles */
+        .home-section {
+            background-color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .home-section h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .home-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .home-section a {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-section a:hover {
+            background-color: #45a049;
+        }
+
+        /* Kho ảnh and Kho video Styles */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .content-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* File Upload Styles */
+        .upload-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .upload-container input[type="file"] {
+            padding: 10px;
+            font-size: 1rem;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Login Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .popup-content h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .popup-content form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        .popup-content button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup-content button:hover {
+            background-color: #45a049;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            display: none;
+            margin-top: 10px;
+        }
+
+        /* Animation for popup */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .popup-content {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>10A3_CBQ_GL</h1>
+    </header>
+
+    <!-- Navbar Section -->
+    <div class="navbar">
+        <div>
+            <a href="javascript:void(0)" onclick="showKhoAnh()" aria-label="View image gallery">Kho ảnh</a>
+            <a href="javascript:void(0)" onclick="showKhoVid()" aria-label="View video gallery">Kho video</a>
+        </div>
+        <button class="login-btn" onclick="showPopup()" aria-label="Open login popup">Đăng nhập</button>
+    </div>
+
+    <!-- Home Section -->
+    <div class="home-section">
+        <h2>Chào mừng đến với Trang Chủ</h2>
+        <p>Chúng tôi cung cấp một không gian để bạn chia sẻ và lưu trữ ảnh và video của mình. Hãy tải lên các tài liệu yêu thích và khám phá các bộ sưu tập tuyệt vời.</p>
+        <a href="javascript:void(0)" onclick="showKhoAnh()">Khám phá Kho Ảnh</a>
+        <a href="javascript:void(0)" onclick="showKhoVid()">Khám phá Kho Video</a>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <!-- Kho ảnh -->
+        <div id="khoAnh" class="content-section">
+            <h2>Kho ảnh</h2>
+            <div class="gallery" id="imageGallery"></div>
+            <div class="upload-container">
+                <input type="file" id="imageUpload" accept="image/*" onchange="previewImage(event)">
+            </div>
+        </div>
+
+        <!-- Kho video -->
+        <div id="khoVid" class="content-section">
+            <h2>Kho video</h2>
+            <div class="gallery" id="videoGallery"></div>
+            <div class="upload-container">
+                <input type="file" id="videoUpload" accept="video/*" onchange="previewVideo(event)">
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Popup -->
+    <div id="signInPopup" class="popup">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closePopup()">×</button>
+            <h2>Đăng nhập</h2>
+            <form id="signInForm">
+                <label for="dob">Ngày sinh:</label>
+                <input type="date" id="dob" required>
+                <button type="submit">Submit</button>
+                <p class="error-message" id="errorMessage">Please enter a valid date.</p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toggle galleries visibility
+        function showKhoAnh() {
+            document.getElementById('khoAnh').classList.add('active');
+            document.getElementById('khoVid').classList.remove('active');
+        }
+
+        function showKhoVid() {
+            document.getElementById('khoVid').classList.add('active');
+            document.getElementById('khoAnh').classList.remove('active');
+        }
+
+        // Show login popup
+        function showPopup() {
+            document.getElementById('signInPopup').style.display = 'flex';
+        }
+
+        // Close login popup
+        function closePopup() {
+            document.getElementById('signInPopup').style.display = 'none';
+        }
+
+        // Image upload and preview
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = e.target.result;
+                    document.getElementById('imageGallery').innerHTML = '';
+                    document.getElementById('imageGallery').appendChild(imgElement);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Video upload and preview
+        function previewVideo(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('video')) {
+                const videoElement = document.createElement('video');
+                videoElement.src = URL.createObjectURL(file);
+                videoElement.controls = true;
+                document.getElementById('videoGallery').innerHTML = '';
+                document.getElementById('videoGallery').appendChild(videoElement);
+            }
+        }
+
+        // Form submission
+        document.getElementById('signInForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const dob = document.getElementById('dob').value;
+            if (!dob) {
+                document.getElementById('errorMessage').style.display = 'block';
+            } else {
+                document.getElementById('errorMessage').style.display = 'none';
+                localStorage.setItem('dob', dob);
+                closePopup();
+            }
+        });
+    </script>
+</body>
+</html>
